@@ -3,16 +3,13 @@
 #include <stdlib.h>
 
 char *repeat_str(size_t count, const char *src) {
-	char* ret = "";
-	size_t srcSize = sizeof(src);
-	if(count > 0 & srcSize > 0)
+	size_t len = strlen(src);
+	char* ret = malloc(count * len * sizeof(char));
+	if(count > 0)
 	{
-		size_t retLen = count * srcSize;
-		ret = malloc(retLen);
-		strcpy(ret, src); //first copy to avoid memory rubbish after malloc
-		for(size_t i = 0; i<count-1; i++)
+		for(size_t i = 0; i<count; i++)
 		{
-			strcat(ret, src);
+			strcpy(ret + i * len, src);
 		}
 	}
 	return ret;
@@ -20,7 +17,7 @@ char *repeat_str(size_t count, const char *src) {
 
 int main()
 {
-	char* repeated = repeat_str(12, "");
+	char* repeated = repeat_str(30, "*a%%Dv6&8(c&lJpV8HCgCicWjdHJ#$8!");
 	printf("%s", repeated);
 	free(repeated);
 
