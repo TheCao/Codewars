@@ -75,12 +75,14 @@ int main()
 	char **ret2 = capitalize(str);
 	for(size_t i = 0; i < srcLen; i++)
 	{
-		printf("%c",ret2[0][i]);
+		printf("%c", ret2[0][i]);
 	}
+	
 	puts(" ");
+	
 	for(size_t i = 0; i < srcLen; i++)
 	{
-		printf("%c",ret2[1][i]);
+		printf("%c", ret2[1][i]);
 	}
 	return 0;
 }
