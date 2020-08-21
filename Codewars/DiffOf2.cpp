@@ -20,12 +20,12 @@ int isDiffrenceOf2(const int& a, const int& b)
 }
 
 std::vector<std::pair<int, int>> twos_difference(const std::vector<int> &vec) {
-	std::vector<int> tempVec = vec;
+	std::vector<int> tempVec(vec);
 	std::vector<std::pair<int,int>> ret; 
-	std::pair<int,int> pair;
 	std::sort(tempVec.begin(), tempVec.end());
 	
 	// array style
+	/*std::pair<int,int> pair;
 	size_t vecSize = tempVec.size();
 	// get data betwen start to end-2
 	for(size_t i = 0; i < vecSize-2 ; ++i)
@@ -47,7 +47,15 @@ std::vector<std::pair<int, int>> twos_difference(const std::vector<int> &vec) {
 			pair = std::make_pair(tempVec[vecSize-2], tempVec[vecSize-1]);
 			ret.push_back(pair);
 		}
-	
+	*/
+	//BETTER SOLUTION!
+	for(const auto a: tempVec)
+	{
+		if(find(tempVec.begin(), tempVec.end(), a+2) != tempVec.end())
+		{
+			ret.push_back(std::make_pair(a, a+2));
+		}
+	}
 	
 	return ret;
 }
