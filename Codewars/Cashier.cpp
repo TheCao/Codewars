@@ -16,9 +16,9 @@ std::string findAnyItemAtPosition(const std::string &data, const std::vector<std
 	std::string ret;
 	for(const auto &a : items)
 	{
-		if(findCaseInsensitive(data, a) == position)
+		if(findCaseInsensitive(data, a, position) == position)
 		{
-			ret += a;
+			ret = a;
 			break;
 		}
 	}
@@ -28,23 +28,25 @@ std::string findAnyItemAtPosition(const std::string &data, const std::vector<std
 std::string get_order(const std::string &order) {
 	std::string ret = "";
 	std::size_t actualPosition = 0;
+	std::string item;
 	
-
-	std::string item = findAnyItemAtPosition(order, items, 0);
-	std::cout << item << " Len: " << item.length();
-
-	std::string item2 = findAnyItemAtPosition(order, items, item.length());
-	std::cout << item2 << " Len: " << item2.length();
-	
-	
+	for(; actualPosition < order.length(); )
+	{
+		item = findAnyItemAtPosition(order, items, actualPosition);
+		actualPosition += item.length();
+		ret += item;
+		if(item.length() == 0 | actualPosition == order.length()) break;
+		ret += " ";
+	}
 	//zrob petle
 	return ret;
 }
 
 int main()
 {
-	const std::string order = "milkshakepizzachickenfriescokeburgerpizzasandwichmilkshakepizza";
-	get_order(order);
+	const std::string order = "milkshakepizzacokepizzachickenfriescokeburgerpizzasandwichmilkshakepizza";
+	std::string newOrder = get_order(order);
+	std::cout << "Wynik to: " << newOrder;
 	
 	return 0;
 }
