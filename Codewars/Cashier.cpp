@@ -5,40 +5,22 @@
 
 const std::vector<std::string> items = {"Burger", "Fries", "Chicken", "Pizza", "Sandwich", "Onionrings", "Milkshake", "Coke"};
 
-std::size_t findCaseInsensitive(const std::string &data,  std::string toSearch, std::size_t startPos = 0)
-{
-	std::transform(toSearch.begin(), toSearch.end(), toSearch.begin(), ::tolower);
-	return data.find(toSearch, startPos);	
-}
-
-std::string findAnyItemAtPosition(const std::string &data, const std::vector<std::string> &items, std::size_t position)
-{
-	std::string ret;
-	for(const auto &a : items)
-	{
-		if(findCaseInsensitive(data, a, position) == position)
-		{
-			ret = a;
-			break;
-		}
-	}
-	return ret;
-}
-
 std::string get_order(const std::string &order) {
 	std::string ret = "";
-	std::size_t actualPosition = 0;
-	std::string item;
+	std::size_t pos = 0;
 	
-	for(; actualPosition < order.length(); )
+	for(const auto &a : items)
 	{
-		item = findAnyItemAtPosition(order, items, actualPosition);
-		actualPosition += item.length();
-		ret += item;
-		if(item.length() == 0 | actualPosition == order.length()) break;
-		ret += " ";
+		std::string aLower = a;
+		std::transform(aLower.begin(), aLower.end(), aLower.begin(), ::tolower);
+		while((pos = order.find(aLower, pos)) != std::string::npos)
+		{
+			if(ret.empty()) ret = a;
+			else ret += " " + a;
+			pos += a.length();
+		}
+		pos = 0;
 	}
-	//zrob petle
 	return ret;
 }
 
